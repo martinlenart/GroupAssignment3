@@ -18,14 +18,34 @@ namespace GroupAssignment3
             myStudents.Sort();
             Console.WriteLine(myStudents);
             Console.WriteLine();
-            
+
+            Console.WriteLine("\nScrambled student list");
+            myStudents.Scramble();
+            Console.WriteLine(myStudents);
+            Console.WriteLine();
+
             int NrOfGroups = 0;
             bool Continue = UserInput.TryReadInt32("How many groups do you want", 2, myStudents.Count / 2, out NrOfGroups);
 
             if (!Continue) return;
 
             myStudents.CreateGroups(NrOfGroups);
-            Console.WriteLine($"If I make {NrOfGroups}, each group will have {myStudents.NrInGroup} students and {myStudents.NrNotInGroup} student remaining");
+            Console.WriteLine($"{NrOfGroups} groups, each group will have {myStudents.NrInGroup} students and {myStudents.NrNotInGroup} student remaining");
+
+            for (int gr = 0; gr < myStudents.NrOfGroups; gr++)
+            {
+                Console.WriteLine($"\nGroup {gr}:");
+                foreach (var item in myStudents.GetGroup(gr))
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            Console.WriteLine($"\nRemain to group {myStudents.NrNotInGroup}:");
+            foreach (var item in myStudents.RemainToGroup())
+            {
+                Console.WriteLine(item);
+            }
 
         }
 
